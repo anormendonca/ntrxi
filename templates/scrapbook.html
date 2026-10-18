@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapbook Creative Portfolio Template</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for Typography & Handwritten Callouts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#f6f5ee',
+                        highlighter: '#facc15',
+                        neonGreen: '#4ade80',
+                        accentRed: '#ef4444',
+                        accentBlue: '#38bdf8',
+                        darkBg: '#121316',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        handwritten: ['Caveat', 'cursive'],
+                        marker: ['Permanent Marker', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Dark Textured Outer Background (Desk surface effect) */
+        body {
+            background-color: #121316;
+            background-image: 
+                radial-gradient(#262930 1px, transparent 1px),
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 20px 20px, 40px 40px, 40px 40px;
+        }
+
+        /* Paper Canvas Texture */
+        .paper-texture {
+            background-color: #f8f7f2;
+            background-image: 
+                linear-gradient(rgba(200, 200, 200, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 200, 200, 0.2) 1px, transparent 1px);
+            background-size: 24px 24px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(0,0,0,0.1);
+        }
+
+        /* Marker Highlighter Effect */
+        .highlight-yellow {
+            background: linear-gradient(100deg, rgba(250, 204, 21, 0.85) 0%, rgba(250, 204, 21, 0.95) 100%);
+            display: inline;
+            padding: 2px 10px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+            transform: rotate(-0.5deg);
+        }
+
+        .highlight-green {
+            background-color: #4ade80;
+            padding: 1px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #064e3b;
+        }
+
+        /* Metallic Paperclip Styling */
+        .paperclip {
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            width: 32px;
+            height: 60px;
+            border: 5px solid #d1d5db;
+            border-radius: 16px;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.8);
+            z-index: 40;
+            pointer-events: none;
+        }
+        .paperclip::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 2px;
+            right: 2px;
+            bottom: -10px;
+            border: 4px solid #9ca3af;
+            border-radius: 12px;
+        }
+
+        /* Washi Tape Accent */
+        .tape-effect {
+            background: rgba(243, 230, 200, 0.8);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            backdrop-filter: blur(1px);
+            border-left: 2px dashed rgba(0,0,0,0.1);
+            border-right: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        /* Sticker Cutout Effects */
+        .sticker-card {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 3px 4px 10px rgba(0,0,0,0.15);
+        }
+        .sticker-card:hover {
+            transform: translateY(-6px) scale(1.04) rotate(0deg) !important;
+            box-shadow: 6px 12px 20px rgba(0,0,0,0.25);
+        }
+
+        /* RED CONTACT BOX HOVER & GLOW INTERACTION */
+        .red-contact-card {
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .red-contact-card:hover {
+            transform: translateY(-6px) rotate(-1deg) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(239, 68, 68, 0.35), 0 0 15px rgba(239, 68, 68, 0.2);
+            border-color: #dc2626 !important;
+        }
+        .red-contact-card:hover .callout-text {
+            color: #b91c1c;
+            text-shadow: 0 0 1px rgba(239, 68, 68, 0.2);
+        }
+        .red-contact-card:hover .circle-highlight {
+            background-color: rgba(254, 226, 226, 0.8);
+            border-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="py-6 px-3 sm:px-6 min-h-screen font-sans text-gray-900 flex flex-col items-center">
+
+    <!-- Top Action Toolbar -->
+    <div class="w-full max-w-5xl mb-6 flex flex-wrap items-center justify-between gap-4 bg-gray-900/80 backdrop-blur border border-gray-800 text-white p-3 sm:p-4 rounded-xl shadow-xl">
+        <div class="flex items-center gap-3">
+            <div class="h-3 w-3 rounded-full bg-red-500"></div>
+            <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
+            <div class="h-3 w-3 rounded-full bg-green-500"></div>
+            <span class="text-xs sm:text-sm font-semibold text-gray-300 ml-2">Scrapbook Portfolio Template</span>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+            <button onclick="window.print()" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-bold rounded-lg transition flex items-center gap-2 shadow">
+                <i class="fa-solid fa-print"></i> Save / Print PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN PAPER SHEET CONTAINER -->
+    <main class="relative w-full max-w-5xl paper-texture rounded-sm p-4 sm:p-8 md:p-12 transition-all">
+        
+        <!-- Top Metallic Paperclip -->
+        <div class="paperclip"></div>
+
+        <!-- TOP HEADER SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-start relative">
+            
+            <!-- Left Header ID Tag / Profile Card -->
+            <div class="lg:col-span-7 bg-white border-2 border-gray-800 p-4 sm:p-5 rounded-md shadow-lg relative transform -rotate-1 hover:rotate-0 transition-transform">
+                
+                <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
+                    
+                    <!-- Profile Picture Frame -->
+                    <div class="relative flex-shrink-0">
+                        <div class="w-36 h-44 sm:w-40 sm:h-48 bg-yellow-400 p-2 border-2 border-gray-900 shadow-md transform -rotate-2">
+                            <img src="https://i.pinimg.com/736x/4c/ec/77/4cec77284d199a9c99bff724dc60ee87.jpg" alt="Alex Morgan" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition duration-300">
+                        </div>
+                    </div>
+
+                    <!-- Personal Info Block -->
+                    <div class="flex-grow text-left space-y-2 w-full">
+                        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+                            Alex Morgan
+                        </h1>
+                        <p class="text-xs sm:text-sm text-gray-600 leading-snug">
+                            Senior Motion & UI/UX Designer crafting interactive digital products, brand experiences, and motion graphics for world-class tech companies.
+                        </p>
+
+                        <!-- Information Table -->
+                        <div class="grid grid-cols-2 gap-1 text-xs font-semibold border-2 border-gray-900 bg-gray-50 p-2 rounded mt-3">
+                            <div><span class="text-gray-500">DOB:</span> 15.10.1998</div>
+                            <div><span class="text-gray-500">LOC:</span> San Francisco, CA</div>
+                            <div class="col-span-2 border-t border-gray-300 pt-1 mt-1 flex items-center gap-1">
+                                <i class="fa-solid fa-phone text-gray-700"></i>
+                                <span>+1 (555) 019-2834</span>
+                            </div>
+                            <div class="col-span-2 flex items-center gap-1 overflow-hidden">
+                                <i class="fa-solid fa-envelope text-gray-700"></i>
+                                <span class="truncate">alex.morgan.design@example.com</span>
+                            </div>
+                            <div class="col-span-2 border-t border-gray-300 pt-1 mt-1 flex items-center justify-between">
+                                <a href="#" class="underline text-blue-800 font-bold hover:text-blue-600 transition truncate">
+                                    https://behance.net/alexmorgandesign
+                                </a>
+                            </div>
+                            <div class="col-span-2 border-t border-gray-200 pt-1 text-[11px] text-gray-600">
+                                <span class="font-bold">Lang:</span> English (Native), French (B2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio QR Code Tag -->
+                <div class="absolute -bottom-4 right-4 bg-white border border-gray-900 px-2 py-1 shadow flex items-center gap-2 transform rotate-2">
+                    <span class="font-handwritten text-xs font-bold text-red-600 -rotate-90">portfolio</span>
+                    <svg class="w-8 h-8 text-gray-900" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm9-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm13-2h2v2h-2v-2zm-4 0h2v2h-2v-2zm2 4h2v2h-2v-2zm2-2h2v2h-2v-2zm2 2h2v2h-2v-2zm-4 2h2v2h-2v-2zm0-6h2v2h-2v-2z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Right Interactive Handwritten Red Contact Note Box -->
+            <div class="lg:col-span-5 relative pt-4 lg:pt-0">
+                <div class="red-contact-card bg-white/60 border-2 border-red-300 p-6 rounded-xl relative space-y-4 shadow-sm cursor-pointer">
+                    
+                    <!-- Decorative Tape Top Right -->
+                    <div class="absolute -top-3 right-8 tape-effect w-20 h-6 transform rotate-6"></div>
+
+                    <!-- Handwritten Note Callout -->
+                    <div class="font-handwritten text-2xl sm:text-3xl text-red-600 leading-snug transform rotate-1 space-y-2">
+                        <p class="callout-text transition-colors">
+                            Please don't hesitate to <span class="circle-highlight border-2 border-red-500 rounded-full px-2 py-0.5 italic inline-block transition-all duration-300">reach out to me</span> if this portfolio needs extra details!
+                        </p>
+                        <div class="flex items-center gap-2 mt-3 text-gray-900 font-sans">
+                            <i class="fa-solid fa-phone-volume text-red-500 text-xl"></i>
+                            <span class="font-bold text-lg sm:text-xl tracking-tight">+1 (555) 019-2834</span>
+                        </div>
+                    </div>
+
+                    <!-- LinkedIn Direct Link Badge -->
+                    <div class="mt-4 bg-white border-2 border-red-400 p-2 sm:p-3 rounded-lg shadow-sm hover:shadow-md transition">
+                        <a href="https://linkedin.com" target="_blank" class="flex items-center gap-3 text-red-600 font-semibold text-xs sm:text-sm hover:underline">
+                            <i class="fa-brands fa-linkedin text-2xl text-blue-600"></i>
+                            <span class="truncate">https://linkedin.com/in/alex-morgan-design</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN TWO-COLUMN BODY CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- LEFT COLUMN: Work Experiences & Education -->
+            <div class="lg:col-span-7 space-y-10">
+                
+                <!-- WORK EXPERIENCES SECTION -->
+                <section>
+                    <div class="mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">
+                            <span class="highlight-yellow">Work Experiences</span>
+                        </h2>
+                    </div>
+
+                    <!-- Experience Timeline -->
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-400 space-y-8">
+                        
+                        <!-- Nvidia -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 bg-yellow-400 border-2 border-gray-900 rounded-full"></div>
+                            
+                            <div class="text-xs font-bold text-gray-700 mb-1">
+                                Jan 2024 - Present • <span class="text-gray-500">2 yrs</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
+                                Senior Motion Designer
+                            </h3>
+                            <div class="text-sm font-medium text-gray-700 mt-0.5 flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-gray-900">Nvidia</span>
+                                <span class="highlight-green text-xs">Full-time</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Santa Clara, CA — Leading 3D keynote visual assets, real-time animation pipelines, and product promo sequences using Cinema 4D and After Effects.
+                            </p>
+                        </div>
+
+                        <!-- Google -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 bg-yellow-400 border-2 border-gray-900 rounded-full"></div>
+                            
+                            <div class="text-xs font-bold text-gray-700 mb-1">
+                                Jun 2022 - Dec 2023 • <span class="text-gray-500">1.5 yrs</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
+                                Interactive UI/UX Designer
+                            </h3>
+                            <div class="text-sm font-medium text-gray-700 mt-0.5 flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-gray-900">Google</span>
+                                <span class="highlight-green text-xs">Full-time</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Mountain View, CA — Designed fluid micro-interactions, component libraries, and visual prototypes for Android OS ecosystems and web surfaces.
+                            </p>
+                        </div>
+
+                        <!-- Apple -->
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 bg-yellow-400 border-2 border-gray-900 rounded-full"></div>
+                            
+                            <div class="text-xs font-bold text-gray-700 mb-1">
+                                Jun 2021 - May 2022 • <span class="text-gray-500">1 yr</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
+                                Product Design Intern
+                            </h3>
+                            <div class="text-sm font-medium text-gray-700 mt-0.5 flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-gray-900">Apple</span>
+                                <span class="highlight-green text-xs">Internship</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Cupertino, CA — Collaborated with marketing and design teams to craft launch assets and editorial graphics for major Apple Event presentations.
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- EDUCATION SECTION -->
+                <section>
+                    <div class="mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">
+                            <span class="highlight-yellow">Education</span>
+                        </h2>
+                    </div>
+
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gray-400 space-y-6">
+                        
+                        <!-- Stanford University -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 bg-yellow-400 border-2 border-gray-900 rounded-full"></div>
+                            <div class="text-xs font-bold text-gray-700 mb-1">2018 - 2021</div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight">
+                                Stanford University
+                            </h3>
+                            <div class="text-sm text-gray-800 mt-1 font-medium">
+                                B.S. in Digital Media & Graphic Design • 
+                                <span class="highlight-green text-xs">GPA 3.92</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Stanford, California</p>
+                        </div>
+
+                        <!-- Rhode Island School of Design -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 bg-yellow-400 border-2 border-gray-900 rounded-full"></div>
+                            <div class="text-xs font-bold text-gray-700 mb-1">2016 - 2018</div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight">
+                                Rhode Island School of Design (RISD)
+                            </h3>
+                            <div class="text-sm text-gray-800 mt-1 font-medium">
+                                Associate Degree in Fine Arts & Illustration • 
+                                <span class="highlight-green text-xs">Honors</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Providence, Rhode Island</p>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Area of Expertise & Software Skills -->
+            <div class="lg:col-span-5 space-y-12">
+                
+                <!-- AREA OF EXPERTISE SECTION -->
+                <section>
+                    <div class="mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+                            <span class="highlight-yellow">Area of Expertise</span>
+                        </h2>
+                    </div>
+
+                    <!-- Cutout Sticker Collage -->
+                    <div class="relative min-h-[220px] flex flex-wrap items-center justify-center gap-4 p-2">
+                        
+                        <!-- Tape Banner: PROMOTIONAL DESIGN -->
+                        <div class="sticker-card absolute top-0 left-2 sm:left-4 tape-effect px-4 py-2 border border-yellow-700/30 transform -rotate-6 z-20 cursor-pointer">
+                            <div class="flex items-center gap-2 font-black text-xs sm:text-sm text-amber-950 uppercase tracking-wider">
+                                <i class="fa-solid fa-bullhorn text-amber-900"></i>
+                                PROMOTIONAL DESIGN
+                            </div>
+                        </div>
+
+                        <!-- Red Triangle Tag: UI DESIGN -->
+                        <div class="sticker-card absolute top-12 left-8 sm:left-12 w-28 h-24 bg-red-400 border-2 border-red-600 text-white flex flex-col items-center justify-center transform rotate-12 shadow-md z-10 cursor-pointer" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                            <span class="font-black text-xs mt-6 tracking-wide">UI</span>
+                            <span class="font-bold text-[10px] uppercase tracking-wider">DESIGN</span>
+                        </div>
+
+                        <!-- Green Torn Paper Sticker: EDITORIAL DESIGN -->
+                        <div class="sticker-card absolute top-16 right-10 sm:right-16 bg-emerald-300 border border-emerald-500 text-emerald-950 px-4 py-3 shadow-md transform -rotate-3 z-20 cursor-pointer rounded-sm">
+                            <span class="font-black text-xs sm:text-sm uppercase tracking-wider block">
+                                EDITORIAL
+                            </span>
+                            <span class="font-bold text-xs uppercase block">
+                                DESIGN
+                            </span>
+                        </div>
+
+                        <!-- Blue Circle Badge: MOTION GRAPHICS -->
+                        <div class="sticker-card absolute top-28 right-2 sm:right-4 w-28 h-28 bg-sky-300 border-2 border-sky-500 rounded-full flex flex-col items-center justify-center p-2 text-center text-sky-950 transform rotate-6 shadow-lg z-30 cursor-pointer">
+                            <i class="fa-solid fa-wand-magic-sparkles text-xs mb-0.5"></i>
+                            <span class="font-black text-xs uppercase leading-tight">
+                                MOTION GRAPHICS
+                            </span>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SOFTWARE SKILLS SECTION -->
+                <section>
+                    <div class="mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+                            <span class="highlight-yellow">Software Skills</span>
+                        </h2>
+                    </div>
+
+                    <!-- App Cards Grid with Progress Bars -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                        
+                        <!-- Ae - After Effects -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-indigo-950 text-indigo-400 font-extrabold rounded-md flex items-center justify-center text-lg shadow-inner mb-1 border border-indigo-700">
+                                Ae
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">After Effects</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-indigo-600 h-full w-[95%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pr - Premiere Pro -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-purple-950 text-purple-400 font-extrabold rounded-md flex items-center justify-center text-lg shadow-inner mb-1 border border-purple-700">
+                                Pr
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Premiere Pro</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-purple-600 h-full w-[88%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Ps - Photoshop -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-blue-950 text-blue-400 font-extrabold rounded-md flex items-center justify-center text-lg shadow-inner mb-1 border border-blue-700">
+                                Ps
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Photoshop</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-blue-600 h-full w-[92%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Ai - Illustrator -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-amber-950 text-amber-500 font-extrabold rounded-md flex items-center justify-center text-lg shadow-inner mb-1 border border-amber-700">
+                                Ai
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Illustrator</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-amber-500 h-full w-[90%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- C4D - Cinema 4D -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-blue-950 text-blue-300 font-extrabold rounded-md flex items-center justify-center text-sm shadow-inner mb-1 border border-blue-600">
+                                C4D
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Cinema 4D</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-blue-500 h-full w-[85%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Figma -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-gray-900 text-emerald-400 font-extrabold rounded-md flex items-center justify-center text-lg shadow-inner mb-1 border border-gray-700">
+                                <i class="fa-brands fa-figma"></i>
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Figma</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-emerald-500 h-full w-[94%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Blender -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-orange-950 text-orange-400 font-extrabold rounded-md flex items-center justify-center text-sm shadow-inner mb-1 border border-orange-700">
+                                <i class="fa-solid fa-cubes"></i>
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Blender</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-orange-500 h-full w-[80%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Unity -->
+                        <div class="bg-white border-2 border-gray-900 p-2 sm:p-3 rounded-lg shadow text-center hover:scale-105 transition">
+                            <div class="w-10 h-10 mx-auto bg-gray-900 text-gray-200 font-extrabold rounded-md flex items-center justify-center text-sm shadow-inner mb-1 border border-gray-700">
+                                <i class="fa-brands fa-unity"></i>
+                            </div>
+                            <div class="text-[11px] font-bold text-gray-800 truncate">Unity</div>
+                            <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-gray-300">
+                                <div class="bg-gray-700 h-full w-[70%]"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER / COPYRIGHT SIGNATURE -->
+        <footer class="mt-16 pt-6 border-t-2 border-gray-300 text-center flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+            <p>© <span id="year">2026</span> Alex Morgan. All rights reserved.</p>
+            <p class="font-handwritten text-lg text-gray-700">Handcrafted Creative Portfolio Template</p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
