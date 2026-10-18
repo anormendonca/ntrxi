@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver Shaw - Executive Assistant Resume</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Mono for monospace text & Inter for bold headlines -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#e2ded5',
+                        creamDark: '#1a1917',
+                        ink: '#0a0a0a',
+                        inkLight: '#18181b',
+                        subtleBorder: '#121212',
+                        subtleBorderDark: '#e2ded5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base page aesthetics matching editorial paper feel */
+        body {
+            background-color: #e2ded5;
+            color: #0a0a0a;
+            font-family: 'Space Mono', monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #121212;
+            color: #e2ded5;
+        }
+
+        /* Divider lines */
+        .editorial-divider {
+            border-bottom: 1.5px solid #0a0a0a;
+        }
+        .dark .editorial-divider {
+            border-bottom: 1.5px solid #e2ded5;
+        }
+
+        .editorial-divider-thin {
+            border-bottom: 1px solid rgba(10, 10, 10, 0.25);
+        }
+        .dark .editorial-divider-thin {
+            border-bottom: 1px solid rgba(226, 222, 213, 0.25);
+        }
+
+        /* Subtle interactive row highlights */
+        .experience-row {
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .experience-row:hover {
+            background-color: rgba(0, 0, 0, 0.035);
+        }
+        .dark .experience-row:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Print optimization */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+            }
+            .paper-sheet {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                background-color: transparent !important;
+            }
+            .editorial-divider {
+                border-bottom: 1.5px solid #000000 !important;
+            }
+            .editorial-divider-thin {
+                border-bottom: 1px solid #666666 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-full py-6 sm:py-12 px-4 sm:px-8 md:px-16 flex flex-col items-center">
+
+    <!-- Top Floating Toolbar (No Print) -->
+    <header class="no-print w-full max-w-4xl mb-8 flex flex-wrap items-center justify-between gap-4 bg-black/5 dark:bg-white/5 p-4 rounded-lg border border-black/10 dark:border-white/10 backdrop-blur-sm">
+        <div class="flex items-center gap-2 text-xs font-mono tracking-wider uppercase font-bold">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            Editorial Resume Template
+        </div>
+
+        <div class="flex items-center gap-3 text-xs font-mono">
+            <!-- Theme Toggle -->
+            <button id="themeToggle" onclick="toggleTheme()" class="px-3 py-1.5 border border-black dark:border-white hover:bg-black hover:text-cream dark:hover:bg-white dark:hover:text-ink transition flex items-center gap-2 rounded-none">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:inline"></i>
+                <span id="themeLabel">Dark Mode</span>
+            </button>
+
+            <!-- PDF / Print Button -->
+            <button onclick="window.print()" class="px-4 py-1.5 bg-black text-cream dark:bg-white dark:text-ink font-bold hover:opacity-80 transition flex items-center gap-2 rounded-none">
+                <i class="fa-solid fa-print"></i>
+                <span>Print / Save PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN EDITORIAL RESUME CONTAINER -->
+    <main class="paper-sheet w-full max-w-4xl bg-cream dark:bg-creamDark text-ink dark:text-cream p-6 sm:p-12 md:p-16 transition-colors duration-300">
+        
+        <!-- HEADER SECTION -->
+        <header class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start mb-12 sm:mb-16">
+            
+            <!-- Left Header: Name & Role Title -->
+            <div class="md:col-span-6 space-y-2">
+                <h1 class="font-sans font-black text-5xl sm:text-6xl md:text-7xl leading-none tracking-tight uppercase">
+                    OLIVER<br>SHAW
+                </h1>
+                <p class="font-sans font-black text-sm sm:text-base md:text-lg tracking-wider uppercase pt-2">
+                    EXECUTIVE ASSISTANT
+                </p>
+            </div>
+
+            <!-- Right Header: Contact Details & Summary -->
+            <div class="md:col-span-6 space-y-6 md:pl-4">
+                
+                <!-- Contact Info Top-Right Block -->
+                <div class="text-xs sm:text-sm font-mono space-y-0.5 text-left md:text-right font-medium">
+                    <p>+123-456-7890</p>
+                    <p><a href="https://reallygreatsite.com" target="_blank" class="hover:underline">reallygreatsite.com</a></p>
+                    <p><a href="mailto:hello@reallygreatsite.com" class="hover:underline">hello@reallygreatsite.com</a></p>
+                </div>
+
+                <!-- Summary Paragraph -->
+                <p class="text-xs sm:text-sm font-mono leading-relaxed text-justify pt-2 sm:pt-4">
+                    Organized and proactive Executive Assistant with experience supporting senior leadership and coordinating daily business operations. Skilled in managing schedules, organizing meetings, and maintaining efficient communication across teams.
+                </p>
+                <p class="text-xs sm:text-sm font-mono leading-relaxed text-justify">
+                    Known for strong attention to detail, professionalism, and the ability to manage multiple priorities in fast-paced environments. Committed to supporting business objectives through effective organization and operational excellence.
+                </p>
+            </div>
+        </header>
+
+
+        <!-- WORK EXPERIENCE SECTION -->
+        <section class="mb-12 sm:mb-16">
+            
+            <!-- Section Header Divider -->
+            <div class="editorial-divider pb-2 mb-6 sm:mb-8">
+                <h2 class="font-sans font-black text-lg sm:text-xl uppercase tracking-wider">
+                    WORK EXPERIENCE
+                </h2>
+            </div>
+
+            <div class="space-y-8 sm:space-y-10">
+                
+                <!-- Experience Item 01 -->
+                <article class="experience-row p-2 sm:p-3 -mx-2 sm:-mx-3 rounded-none">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        
+                        <!-- Left Column: Number, Title, Company -->
+                        <div class="md:col-span-6 flex gap-3">
+                            <span class="font-sans font-black text-sm sm:text-base leading-snug">01</span>
+                            <div>
+                                <h3 class="font-sans font-black text-sm sm:text-base uppercase tracking-wide leading-snug">
+                                    EXECUTIVE ASSISTANT
+                                </h3>
+                                <p class="text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-400 mt-0.5">
+                                    Northline Group
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Date Range & Description -->
+                        <div class="md:col-span-6 space-y-3">
+                            <div class="text-right md:text-right font-sans font-black text-xs sm:text-sm leading-tight uppercase">
+                                JAN 2022<br>/PRESENT
+                            </div>
+                            <p class="text-xs sm:text-sm font-mono leading-relaxed text-justify">
+                                Manage executive calendars, coordinate meetings, and organize travel arrangements for senior leadership. Support daily operations by preparing reports, presentations, and business documents while ensuring smooth communication across departments.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="editorial-divider-thin"></div>
+
+                <!-- Experience Item 02 -->
+                <article class="experience-row p-2 sm:p-3 -mx-2 sm:-mx-3 rounded-none">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        
+                        <!-- Left Column: Number, Title, Company -->
+                        <div class="md:col-span-6 flex gap-3">
+                            <span class="font-sans font-black text-sm sm:text-base leading-snug">02</span>
+                            <div>
+                                <h3 class="font-sans font-black text-sm sm:text-base uppercase tracking-wide leading-snug">
+                                    ADMINISTRATIVE ASSISTANT
+                                </h3>
+                                <p class="text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-400 mt-0.5">
+                                    Union Consulting
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Date Range & Description -->
+                        <div class="md:col-span-6 space-y-3">
+                            <div class="text-right md:text-right font-sans font-black text-xs sm:text-sm leading-tight uppercase">
+                                MAR 2020<br>/DEC 2021
+                            </div>
+                            <p class="text-xs sm:text-sm font-mono leading-relaxed text-justify">
+                                Supported daily administrative activities and maintained accurate documentation and records. Coordinated meetings, managed correspondence, and assisted with scheduling and operational tasks.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="editorial-divider-thin"></div>
+
+                <!-- Experience Item 03 -->
+                <article class="experience-row p-2 sm:p-3 -mx-2 sm:-mx-3 rounded-none">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        
+                        <!-- Left Column: Number, Title, Company -->
+                        <div class="md:col-span-6 flex gap-3">
+                            <span class="font-sans font-black text-sm sm:text-base leading-snug">03</span>
+                            <div>
+                                <h3 class="font-sans font-black text-sm sm:text-base uppercase tracking-wide leading-snug">
+                                    OFFICE COORDINATOR
+                                </h3>
+                                <p class="text-xs sm:text-sm font-mono text-neutral-700 dark:text-neutral-400 mt-0.5">
+                                    Core Solutions
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Date Range & Description -->
+                        <div class="md:col-span-6 space-y-3">
+                            <div class="text-right md:text-right font-sans font-black text-xs sm:text-sm leading-tight uppercase">
+                                JUN 2018<br>/FEB 2020
+                            </div>
+                            <p class="text-xs sm:text-sm font-mono leading-relaxed text-justify">
+                                Coordinated office operations and supported team members with administrative and organizational tasks. Managed schedules, maintained records, and assisted with event and meeting preparation.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- EDUCATION SECTION -->
+        <section class="mb-12 sm:mb-16">
+            
+            <!-- Section Header Divider -->
+            <div class="editorial-divider pb-2 mb-6 sm:mb-8">
+                <h2 class="font-sans font-black text-lg sm:text-xl uppercase tracking-wider">
+                    EDUCATION
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- Education 04 -->
+                <div class="editorial-divider-thin pb-3 flex items-start justify-between gap-4">
+                    <div class="flex gap-3">
+                        <span class="font-sans font-black text-sm sm:text-base">04</span>
+                        <div>
+                            <h3 class="font-sans font-black text-xs sm:text-sm uppercase tracking-wide">
+                                BUSINESS COMMUNICATION CERTIFICATE
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="font-sans font-black text-xs sm:text-sm text-right shrink-0">
+                        2021
+                    </div>
+                </div>
+
+                <!-- Education 05 -->
+                <div class="editorial-divider-thin pb-3 flex items-start justify-between gap-4">
+                    <div class="flex gap-3">
+                        <span class="font-sans font-black text-sm sm:text-base">05</span>
+                        <div>
+                            <h3 class="font-sans font-black text-xs sm:text-sm uppercase tracking-wide">
+                                PROJECT MANAGEMENT FUNDAMENTALS
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="font-sans font-black text-xs sm:text-sm text-right shrink-0">
+                        2020
+                    </div>
+                </div>
+
+                <!-- Education 06 -->
+                <div class="editorial-divider-thin pb-3 flex items-start justify-between gap-4">
+                    <div class="flex gap-3">
+                        <span class="font-sans font-black text-sm sm:text-base">06</span>
+                        <div>
+                            <h3 class="font-sans font-black text-xs sm:text-sm uppercase tracking-wide">
+                                BACHELOR OF BUSINESS ADMINISTRATION
+                            </h3>
+                            <p class="text-xs font-mono text-neutral-700 dark:text-neutral-400 mt-0.5">
+                                Northbridge University
+                            </p>
+                        </div>
+                    </div>
+                    <div class="font-sans font-black text-xs sm:text-sm text-right shrink-0">
+                        2015<br>/2018
+                    </div>
+                </div>
+
+                <!-- Education 07 -->
+                <div class="editorial-divider-thin pb-3 flex items-start justify-between gap-4">
+                    <div class="flex gap-3">
+                        <span class="font-sans font-black text-sm sm:text-base">07</span>
+                        <div>
+                            <h3 class="font-sans font-black text-xs sm:text-sm uppercase tracking-wide">
+                                ASSOCIATE DEGREE IN BUSINESS STUDIES
+                            </h3>
+                            <p class="text-xs font-mono text-neutral-700 dark:text-neutral-400 mt-0.5">
+                                Westbrook College
+                            </p>
+                        </div>
+                    </div>
+                    <div class="font-sans font-black text-xs sm:text-sm text-right shrink-0">
+                        2013<br>/2015
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- LANGUAGES SECTION -->
+        <section>
+            <!-- Section Header Divider -->
+            <div class="editorial-divider pb-2 mb-4 sm:mb-6">
+                <h2 class="font-sans font-black text-lg sm:text-xl uppercase tracking-wider">
+                    LANGUAGES
+                </h2>
+            </div>
+
+            <!-- Language List Inline Bar -->
+            <p class="text-xs sm:text-sm font-mono leading-relaxed">
+                English: Native &nbsp;/&nbsp; French: Intermediate (B2) &nbsp;/&nbsp; Spanish: Basic (A2)
+            </p>
+        </section>
+
+    </main>
+
+    <!-- JavaScript for Theme Toggle -->
+    <script>
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const themeLabel = document.getElementById('themeLabel');
+            
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                themeLabel.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                themeLabel.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize system theme preference or saved preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('themeLabel').textContent = 'Light Mode';
+        }
+    </script>
+</body>
+</html>
