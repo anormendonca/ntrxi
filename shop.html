@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ntrxi — The Shop</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            800: '#1f2937',
+                            900: '#111827',
+                            black: '#0a0a0a',
+                        },
+                        cardBg: '#efefef'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for minimalist clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+        .pill-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pill-btn.active {
+            background-color: #111827;
+            color: #ffffff;
+            border-color: #111827;
+        }
+        .glass-overlay {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-[#f7f7f8] text-gray-900 font-sans antialiased min-h-screen flex flex-col selection:bg-black selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="w-full bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="font-display font-extrabold text-2xl tracking-tighter text-black lowercase">
+                ntrxi<span class="text-emerald-500">.</span>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-medium tracking-wide text-gray-600">
+                <a href="#" class="hover:text-black transition">About</a>
+                <a href="#" class="hover:text-black font-bold text-black border-b-2 border-black pb-0.5">Shop</a>
+                <a href="#" class="hover:text-black transition">Services</a>
+                <a href="#" class="hover:text-black transition">Blog</a>
+            </nav>
+
+            <!-- Cart Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCartDrawer(true)" class="bg-black text-white px-4 py-2 rounded-lg text-xs font-medium flex items-center gap-2 hover:bg-gray-800 transition shadow-sm">
+                    <i class="fa-solid fa-cart-shopping text-xs"></i>
+                    <span>Your Cart</span>
+                    <span id="cartCountBadge" class="bg-white text-black font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 flex-1">
+        
+        <!-- Hero Title -->
+        <div class="text-center my-6 md:my-10">
+            <h1 class="font-display text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-gray-900 lowercase select-none">
+                The Shop<span class="text-emerald-500">.</span>
+            </h1>
+            <p class="text-gray-500 text-xs sm:text-sm mt-2 max-w-md mx-auto">
+                Digital assets, graphic design, posters, and web templates crafted by ntrxi.
+            </p>
+        </div>
+
+        <!-- Layout Grid: Sidebar + Product Catalog -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start mt-8">
+
+            <!-- LEFT SIDEBAR FILTERS -->
+            <aside class="lg:col-span-1 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-6 sticky top-24">
+                
+                <!-- Search Bar -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Search</label>
+                    <div class="relative">
+                        <input type="text" id="searchInput" oninput="renderProducts()" placeholder="Search items..." class="w-full bg-gray-50 border border-gray-200 text-xs rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:border-black transition">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-xs text-gray-400"></i>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                    <h2 class="font-bold text-sm tracking-tight text-gray-900 uppercase">Filter</h2>
+                    <button onclick="resetFilters()" class="text-[11px] text-gray-400 hover:text-black underline transition">Reset</button>
+                </div>
+
+                <!-- By Category (Populated automatically from CATEGORIES array in code) -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">
+                        By Category
+                    </label>
+                    <div class="flex flex-wrap gap-1.5" id="categoryFilterContainer">
+                        <!-- Rendered dynamically from CATEGORIES array -->
+                    </div>
+                </div>
+
+                <!-- Price Range Filters -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">
+                        Price Range
+                    </label>
+                    <div class="flex flex-wrap gap-1.5" id="priceFilterContainer">
+                        <button onclick="setPriceFilter('all')" class="price-btn pill-btn active text-xs px-3 py-1.5 rounded-md border border-gray-200 font-medium">All</button>
+                        <button onclick="setPriceFilter('under50')" class="price-btn pill-btn text-xs px-3 py-1.5 rounded-md border border-gray-200 font-medium text-gray-600 bg-gray-50 hover:bg-gray-100">Under $50</button>
+                        <button onclick="setPriceFilter('50to150')" class="price-btn pill-btn text-xs px-3 py-1.5 rounded-md border border-gray-200 font-medium text-gray-600 bg-gray-50 hover:bg-gray-100">$50 - $150</button>
+                        <button onclick="setPriceFilter('150plus')" class="price-btn pill-btn text-xs px-3 py-1.5 rounded-md border border-gray-200 font-medium text-gray-600 bg-gray-50 hover:bg-gray-100">$150+</button>
+                    </div>
+                </div>
+
+                <!-- Availability -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">
+                        Delivery
+                    </label>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-[11px] px-2.5 py-1 rounded bg-gray-100 text-gray-600">⚡ Instant Digital File</span>
+                        <span class="text-[11px] px-2.5 py-1 rounded bg-gray-100 text-gray-600">🎨 Full License</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT PRODUCT CATALOG -->
+            <section class="lg:col-span-3">
+                <!-- Header Toolbar (Count + Sort) -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 font-display">All Products</h2>
+                        <p class="text-xs text-gray-500 mt-0.5" id="productResultsCount">Showing 1 Result</p>
+                    </div>
+
+                    <!-- Sort Controls -->
+                    <div class="flex items-center gap-2 self-end sm:self-auto">
+                        <span class="text-xs text-gray-500 font-medium">Sort by:</span>
+                        <select id="sortSelect" onchange="renderProducts()" class="bg-white border border-gray-200 text-xs font-medium text-gray-800 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black">
+                            <option value="featured">Most Popular</option>
+                            <option value="newest">Newest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grid of Products -->
+                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-gray-200">
+                    <i class="fa-solid fa-box-open text-4xl text-gray-300 mb-3"></i>
+                    <h3 class="text-base font-semibold text-gray-800">No products found</h3>
+                    <p class="text-xs text-gray-500 mt-1">Try resetting your filters or search terms.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-black text-white rounded-lg text-xs font-medium hover:bg-gray-800 transition">Reset Filters</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-gray-200 bg-white py-10 px-4 sm:px-8 text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-gray-900 font-display text-sm lowercase">ntrxi.</p>
+                <p class="mt-1">© 2026 ntrxi. All rights reserved.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-black">Privacy Policy</a>
+                <a href="#" class="hover:text-black">Terms of Service</a>
+                <a href="#" class="hover:text-black">Licensing Terms</a>
+                <a href="#" class="hover:text-black">Support</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== MODALS & DRAWERS ==================== -->
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 glass-overlay transition-opacity">
+        <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all relative flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white w-8 h-8 rounded-full flex items-center justify-center text-gray-600 shadow-sm transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="md:w-1/2 bg-[#ececec] p-6 flex items-center justify-center">
+                <img id="qvImage" src="" alt="" class="max-h-64 md:max-h-80 object-contain rounded-lg drop-shadow-md">
+            </div>
+            <div class="md:w-1/2 p-6 flex flex-col justify-between overflow-y-auto">
+                <div>
+                    <span id="qvBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-white inline-block mb-2">Category</span>
+                    <h3 id="qvTitle" class="text-xl font-bold font-display text-gray-900 leading-snug">Product Title</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span id="qvPrice" class="text-lg font-bold text-gray-900">$0</span>
+                        <span id="qvOldPrice" class="text-xs text-gray-400 line-through"></span>
+                    </div>
+                    <p id="qvDescription" class="text-xs text-gray-600 mt-4 leading-relaxed">Product description goes here.</p>
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <span class="text-[11px] font-bold uppercase text-gray-400 tracking-wider">Features</span>
+                        <ul id="qvFeatures" class="text-xs text-gray-700 mt-1.5 space-y-1">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-gray-100 flex gap-2">
+                    <button id="qvAddToCartBtn" class="flex-1 bg-black text-white py-3 rounded-xl text-xs font-semibold hover:bg-gray-800 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-out Cart Drawer -->
+    <div id="cartDrawerOverlay" class="fixed inset-0 z-50 hidden glass-overlay transition-opacity" onclick="toggleCartDrawer(false)"></div>
+    <div id="cartDrawer" class="fixed top-0 right-0 bottom-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <!-- Header -->
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <h3 class="font-bold text-base font-display">Your Shopping Cart</h3>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-gray-400 hover:text-black p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsList" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Cart Footer / Summary -->
+        <div class="p-5 border-t border-gray-100 bg-gray-50 space-y-3">
+            <div class="flex justify-between text-xs text-gray-500">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <div class="flex justify-between text-xs text-gray-500">
+                <span>Instant Digital Delivery</span>
+                <span class="text-emerald-600 font-medium">FREE</span>
+            </div>
+            <div class="flex justify-between text-sm font-bold text-gray-900 pt-2 border-t border-gray-200">
+                <span>Total</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button onclick="handleCheckout()" class="w-full bg-black text-white py-3 rounded-xl text-xs font-semibold hover:bg-gray-800 transition flex items-center justify-center gap-2 shadow-sm">
+                <span>Checkout</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        /*
+        ===================================================================
+        1. CATEGORIES CONFIGURATION
+        -------------------------------------------------------------------
+        Add or edit your categories here. They will automatically show up
+        as filter pills on the sidebar!
+        ===================================================================
+        */
+        const CATEGORIES = [
+            "Graphic Design",
+            "Posters",
+            "Websites"
+            // To add a new category, just add it here, e.g.:
+            // , "3D Assets"
+            // , "Typography"
+        ];
+
+
+        /*
+        ===================================================================
+        2. PRODUCTS CONFIGURATION
+        -------------------------------------------------------------------
+        TO ADD A NEW PRODUCT:
+        Copy one of the `{ ... }` blocks below, paste it inside the array, 
+        and change the values!
+
+        Example template to copy:
+
+        {
+            id: 2,                                                  // Must be a unique number
+            title: "Your Product Name",                              // Product title
+            category: "Graphic Design",                             // Must match one of your CATEGORIES
+            price: 50,                                              // Number price
+            oldPrice: 75,                                           // Optional original price for sale tag (or leave out)
+            badge: "New",                                           // Optional badge: "New", "Best Seller", "20% Off", etc.
+            format: "Figma",                                        // File format label (e.g. Figma, PSD, PDF, HTML)
+            image: "https://your-image-url.com/photo.jpg",           // Image URL
+            description: "Detailed description of what you sell.",  // Short description
+            features: [                                             // Array of bullet points
+                "Feature 1",
+                "Feature 2"
+            ]
+        },
+        ===================================================================
+        */
+
+        const PRODUCTS = [
+            {
+                id: 1,
+                title: "Sample Minimalist Design Asset",
+                category: "Graphic Design",
+                price: 49,
+                oldPrice: 75,
+                badge: "New",
+                format: "Figma",
+                image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
+                description: "This is your single starter template product. Copy and paste this block in the code to add more items!",
+                features: [
+                    "Editable source file included",
+                    "High resolution asset",
+                    "Commercial usage license"
+                ]
+            }
+            // PASTE NEW PRODUCTS BELOW THIS LINE
+        ];
+
+
+        // --- STATE MANAGEMENT ---
+        let currentProducts = [...PRODUCTS];
+        let activeCategory = "All";
+        let activePriceFilter = "all";
+        let cart = [];
+        let favorites = new Set();
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryFilters();
+            renderProducts();
+            updateCartBadge();
+        });
+
+        // --- RENDER CATEGORY PILLS FROM CATEGORIES ARRAY ---
+        function renderCategoryFilters() {
+            const allCats = ["All", ...CATEGORIES];
+            const container = document.getElementById('categoryFilterContainer');
+            
+            container.innerHTML = allCats.map(cat => `
+                <button 
+                    onclick="setCategory('${cat}')" 
+                    class="cat-pill pill-btn text-xs px-3 py-1.5 rounded-md border border-gray-200 font-medium ${cat === activeCategory ? 'active' : 'bg-gray-50 text-gray-600 hover:bg-gray-100'}"
+                >
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        // --- RENDER PRODUCTS GRID ---
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            // Filtering logic
+            let filtered = PRODUCTS.filter(p => {
+                // Search filter
+                if (searchQuery && !p.title.toLowerCase().includes(searchQuery) && !p.description.toLowerCase().includes(searchQuery)) {
+                    return false;
+                }
+
+                // Category Filter
+                if (activeCategory !== "All" && p.category !== activeCategory) return false;
+
+                // Price Filter
+                if (activePriceFilter === "under50" && p.price >= 50) return false;
+                if (activePriceFilter === "50to150" && (p.price < 50 || p.price > 150)) return false;
+                if (activePriceFilter === "150plus" && p.price <= 150) return false;
+
+                return true;
+            });
+
+            // Sorting logic
+            const sortBy = document.getElementById('sortSelect').value;
+            if (sortBy === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'newest') {
+                filtered.sort((a, b) => b.id - a.id);
+            }
+
+            // Update count
+            document.getElementById('productResultsCount').innerText = `Showing ${filtered.length} ${filtered.length === 1 ? 'Result' : 'Results'}`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Generate html grid matching reference image style
+            grid.innerHTML = filtered.map(p => {
+                const isFav = favorites.has(p.id);
+                return `
+                <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <!-- Image Box Container -->
+                    <div class="relative bg-cardBg p-6 h-64 flex items-center justify-center overflow-hidden">
+                        <!-- Top Badges -->
+                        ${p.badge ? `
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-800 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">
+                                ${p.badge}
+                            </span>
+                        ` : ''}
+
+                        <!-- Overlay Action Buttons -->
+                        <div class="absolute top-3 right-3 flex flex-col gap-1.5 z-10">
+                            <button onclick="toggleFavorite(${p.id})" class="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm transition">
+                                <i class="${isFav ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart text-xs"></i>
+                            </button>
+                            <button onclick="addToCart(${p.id})" class="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-700 flex items-center justify-center shadow-sm transition">
+                                <i class="fa-solid fa-cart-plus text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Product Image -->
+                        <img 
+                            src="${p.image}" 
+                            alt="${p.title}"
+                            class="max-h-48 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm"
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x300/ececec/999999?text=${encodeURIComponent(p.title)}'"
+                        />
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-[11px] text-gray-400 font-medium mb-1">
+                                <span>${p.category}</span>
+                                ${p.format ? `<span class="bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">${p.format}</span>` : ''}
+                            </div>
+                            <h3 class="font-bold text-sm text-gray-900 group-hover:text-black transition line-clamp-1">
+                                ${p.title}
+                            </h3>
+                        </div>
+
+                        <!-- Price & Quick View CTA -->
+                        <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="font-bold text-sm text-gray-900">$${p.price}</span>
+                                ${p.oldPrice ? `<span class="text-xs text-gray-400 line-through">$${p.oldPrice}</span>` : ''}
+                            </div>
+                            <button onclick="openQuickView(${p.id})" class="text-xs font-semibold text-gray-600 hover:text-black underline underline-offset-2">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        // --- FILTER CONTROLLERS ---
+        function setCategory(cat) {
+            activeCategory = cat;
+            renderCategoryFilters();
+            renderProducts();
+        }
+
+        function setPriceFilter(range) {
+            activePriceFilter = range;
+            document.querySelectorAll('.price-btn').forEach(btn => btn.classList.remove('active', 'bg-black', 'text-white'));
+            event.target.classList.add('active');
+            renderProducts();
+        }
+
+        function resetFilters() {
+            activeCategory = "All";
+            activePriceFilter = "all";
+            document.getElementById('searchInput').value = '';
+            
+            renderCategoryFilters();
+            
+            document.querySelectorAll('.price-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.price-btn')[0].classList.add('active');
+
+            renderProducts();
+        }
+
+        function toggleFavorite(id) {
+            if (favorites.has(id)) {
+                favorites.delete(id);
+            } else {
+                favorites.add(id);
+            }
+            renderProducts();
+        }
+
+        // --- QUICK VIEW MODAL ---
+        function openQuickView(id) {
+            const product = PRODUCTS.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('qvImage').src = product.image;
+            document.getElementById('qvBadge').innerText = product.badge || product.category;
+            document.getElementById('qvTitle').innerText = product.title;
+            document.getElementById('qvPrice').innerText = `$${product.price}`;
+            document.getElementById('qvOldPrice').innerText = product.oldPrice ? `$${product.oldPrice}` : '';
+            document.getElementById('qvDescription').innerText = product.description;
+
+            const featuresList = document.getElementById('qvFeatures');
+            featuresList.innerHTML = (product.features || ["Instant digital download access", "Commercial license included"])
+                .map(f => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> ${f}</li>`).join('');
+
+            const btn = document.getElementById('qvAddToCartBtn');
+            btn.onclick = () => {
+                addToCart(product.id);
+                closeQuickView();
+            };
+
+            document.getElementById('quickViewModal').classList.remove('hidden');
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+        }
+
+        // --- CART DRAWER LOGIC ---
+        function toggleCartDrawer(open) {
+            const overlay = document.getElementById('cartDrawerOverlay');
+            const drawer = document.getElementById('cartDrawer');
+
+            if (open) {
+                overlay.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+                renderCartItems();
+            } else {
+                overlay.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function addToCart(id) {
+            const product = PRODUCTS.find(p => p.id === id);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === id);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartBadge();
+            toggleCartDrawer(true);
+        }
+
+        function updateCartBadge() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCountBadge').innerText = totalQty;
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsList');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fa-solid fa-cart-flatbed text-3xl text-gray-300 mb-2"></i>
+                        <p class="text-xs text-gray-500">Your cart is currently empty.</p>
+                    </div>
+                `;
+                document.getElementById('cartSubtotal').innerText = "$0.00";
+                document.getElementById('cartTotal').innerText = "$0.00";
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between gap-3 pb-3 border-b border-gray-100">
+                    <img src="${item.image}" alt="" class="w-12 h-12 rounded-lg bg-gray-100 object-contain p-1">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-xs font-bold text-gray-900 truncate">${item.title}</h4>
+                        <p class="text-[10px] text-gray-400">$${item.price} each</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-100 px-2 py-1 rounded-md text-xs">
+                        <button onclick="updateCartQty(${item.id}, -1)" class="text-gray-500 hover:text-black font-bold px-1">-</button>
+                        <span class="font-semibold px-1">${item.qty}</span>
+                        <button onclick="updateCartQty(${item.id}, 1)" class="text-gray-500 hover:text-black font-bold px-1">+</button>
+                    </div>
+                    <span class="text-xs font-bold text-gray-900">$${item.price * item.qty}</span>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            document.getElementById('cartSubtotal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cartTotal').innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) return;
+            alert("Order checkout triggered!");
+            cart = [];
+            updateCartBadge();
+            toggleCartDrawer(false);
+        }
+    </script>
+</body>
+</html>
