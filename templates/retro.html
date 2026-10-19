@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thịnh - Y2K Graphic Designer Portfolio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Space Grotesk & Syne & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            y2kCream: '#FBF5EE',
+            y2kRed: '#B81D24',
+            y2kOrange: '#EE5626',
+            y2kDark: '#1A1818',
+            y2kGray: '#333130',
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            space: ['Space Grotesk', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FBF5EE;
+      color: #1A1818;
+      font-family: 'Outfit', sans-serif;
+      background-image: radial-gradient(#B81D24 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      background-color: #FBF5EE;
+    }
+
+    /* Outlined Y2K Display Text Effects */
+    .text-outline-red {
+      color: transparent;
+      -webkit-text-stroke: 2px #B81D24;
+      text-stroke: 2px #B81D24;
+    }
+
+    .text-outline-white {
+      color: transparent;
+      -webkit-text-stroke: 2px #FFFFFF;
+      text-stroke: 2px #FFFFFF;
+    }
+
+    .text-stroke-sm-red {
+      -webkit-text-stroke: 1px #B81D24;
+    }
+
+    /* Curved badge text around profile */
+    .curved-tag {
+      transform: rotate(-90deg) translateY(-50%);
+      transform-origin: left top;
+    }
+
+    /* Custom Toast Animation */
+    #toast {
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Subtle pulse animation for graphic accents */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(3deg); }
+    }
+
+    .float-badge {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+
+    /* Custom scrollbar for clean aesthetics */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FBF5EE;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #B81D24;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-12 flex justify-center items-center relative overflow-x-hidden">
+
+  <!-- Corner Graphic Sparkles / Crosshairs -->
+  <div class="fixed top-4 left-4 text-y2kRed text-xl opacity-60 pointer-events-none">✦</div>
+  <div class="fixed top-4 right-4 text-y2kRed text-xl opacity-60 pointer-events-none">✦</div>
+  <div class="fixed bottom-4 left-4 text-y2kRed text-xl opacity-60 pointer-events-none">✦</div>
+  <div class="fixed bottom-4 right-4 text-y2kRed text-xl opacity-60 pointer-events-none">✦</div>
+
+  <!-- Main Grid Canvas Container -->
+  <main class="w-full max-w-6xl bg-y2kCream border-2 border-y2kRed/30 rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl relative">
+    
+    <!-- Outer Bounding Hairlines / Crosshair Accents -->
+    <div class="absolute top-2 left-2 text-y2kRed text-xs font-mono">┼ 2026_PORTFOLIO</div>
+    <div class="absolute top-2 right-2 text-y2kRed text-xs font-mono">SYS_DESIGN ┼</div>
+
+    <!-- MAIN TWO-COLUMN CONTENT GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      
+      <!-- LEFT COLUMN: PROFILE CARD, CONTACT & SOFTWARE -->
+      <div class="lg:col-span-5 space-y-8">
+        
+        <!-- PROFILE CARD BLOCK -->
+        <div class="relative bg-y2kCream rounded-3xl border-2 border-y2kRed p-3 pt-6 shadow-md">
+          
+          <!-- Red Curved Card Container behind photo -->
+          <div class="relative bg-y2kRed rounded-2xl overflow-hidden aspect-[4/4.5] flex items-end justify-center pt-8">
+            
+            <!-- Sideways Rotated Tag "DUCTHINH.TINZ" -->
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 origin-center text-[11px] font-black tracking-widest text-y2kOrange uppercase whitespace-nowrap z-10 bg-y2kDark/80 px-2 py-0.5 rounded border border-y2kOrange">
+              DUCTHINH.TINZ
+            </div>
+
+            <!-- Profile Image Cutout with Fallback -->
+            <img 
+              src="https://i.pinimg.com/736x/4c/ec/77/4cec77284d199a9c99bff724dc60ee87.jpg" 
+              alt="Thịnh Profile" 
+              class="w-full h-full object-cover object-center relative z-0 transition-transform duration-500 hover:scale-105"
+              onerror="this.onerror=null; this.src='https://placehold.co/500x600/B81D24/FFFFFF?text=Thinh+Graphic';"
+            />
+
+            <!-- Floating Skill Pill Icons over head -->
+            <div class="absolute top-3 right-3 flex items-center gap-1 z-20 bg-y2kCream/90 backdrop-blur px-2.5 py-1 rounded-full border border-y2kDark shadow-sm float-badge">
+              <span class="text-[10px] font-extrabold text-y2kDark uppercase">SKILL</span>
+              <span class="w-5 h-5 rounded-full bg-y2kRed text-white text-[9px] font-extrabold flex items-center justify-center">Ai</span>
+              <span class="w-5 h-5 rounded-full bg-y2kDark text-white text-[9px] font-extrabold flex items-center justify-center">Ps</span>
+              <span class="w-5 h-5 rounded-full bg-y2kOrange text-white text-[9px] font-extrabold flex items-center justify-center">Ae</span>
+            </div>
+
+            <!-- Additional Small Floating Badges top left -->
+            <div class="absolute top-3 left-10 flex gap-1 z-20">
+              <span class="w-6 h-6 rounded-full bg-y2kDark text-white text-[10px] font-black flex items-center justify-center border border-y2kCream shadow">Id</span>
+              <span class="w-6 h-6 rounded-full bg-y2kOrange text-white text-[10px] font-black flex items-center justify-center border border-y2kCream shadow">Ps</span>
+              <span class="w-6 h-6 rounded-full bg-y2kRed text-white text-[10px] font-black flex items-center justify-center border border-y2kCream shadow">Ai</span>
+            </div>
+          </div>
+
+          <!-- Date Badge below Profile Card -->
+          <div class="flex items-center justify-between mt-3 px-1">
+            <span class="font-syne font-black text-xl text-y2kOrange tracking-tight">22-05-2003</span>
+            <span class="text-xs font-mono text-y2kRed/70">DESIGNER_ID#03</span>
+          </div>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <div class="space-y-3">
+          <div class="relative flex items-center">
+            <h2 class="font-syne font-black text-4xl text-outline-red tracking-tight uppercase">
+              CONTACT
+            </h2>
+            <div class="flex-grow h-[2px] bg-y2kRed/30 ml-4"></div>
+          </div>
+
+          <div class="space-y-2.5 pt-1">
+            <!-- Phone -->
+            <button onclick="copyToClipboard('0767166639', 'Phone number copied!')" 
+                    class="w-full flex items-center gap-3 p-2.5 rounded-xl bg-y2kCream hover:bg-y2kRed/10 border border-y2kRed/30 transition-all text-left group">
+              <div class="w-8 h-8 rounded-full bg-y2kRed text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-phone text-xs"></i>
+              </div>
+              <span class="font-outfit font-semibold text-y2kDark text-sm sm:text-base group-hover:text-y2kRed transition-colors">0767166639</span>
+              <span class="ml-auto text-xs text-y2kOrange opacity-0 group-hover:opacity-100 font-bold transition-opacity">Copy</span>
+            </button>
+
+            <!-- Email -->
+            <button onclick="copyToClipboard('ducthinh328@gmail.com', 'Email address copied!')" 
+                    class="w-full flex items-center gap-3 p-2.5 rounded-xl bg-y2kCream hover:bg-y2kRed/10 border border-y2kRed/30 transition-all text-left group">
+              <div class="w-8 h-8 rounded-full bg-y2kRed text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-envelope text-xs"></i>
+              </div>
+              <span class="font-outfit font-semibold text-y2kDark text-sm sm:text-base group-hover:text-y2kRed transition-colors truncate">ducthinh328@gmail.com</span>
+              <span class="ml-auto text-xs text-y2kOrange opacity-0 group-hover:opacity-100 font-bold transition-opacity">Copy</span>
+            </button>
+
+            <!-- Behance Pill Button -->
+            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center gap-2 p-2.5 px-4 rounded-full bg-y2kRed text-white hover:bg-y2kOrange transition-all duration-300 shadow-sm border border-y2kDark group">
+              <i class="fa-solid fa-magnifying-glass text-xs text-y2kCream"></i>
+              <i class="fa-brands fa-square-behance text-lg text-y2kCream"></i>
+              <span class="font-mono text-xs sm:text-sm font-semibold truncate group-hover:underline">behance.net/nguyenfplhc2205</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-auto opacity-70"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- SOFTWARE SECTION -->
+        <div class="space-y-4 pt-2">
+          <div class="relative flex items-center">
+            <h2 class="font-syne font-black text-4xl text-outline-red tracking-tight uppercase">
+              SOFTWARE
+            </h2>
+            <div class="flex-grow h-[2px] bg-y2kRed/30 ml-4"></div>
+          </div>
+
+          <!-- 2-Column Software Bullet Grid -->
+          <div class="grid grid-cols-2 gap-y-3 gap-x-4 pt-1 font-space text-sm sm:text-base font-bold text-y2kDark">
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>Photoshop</span>
+            </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>Premiere</span>
+            </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>Illustrator</span>
+            </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>After Effects</span>
+            </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>Indesign</span>
+            </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover:text-y2kRed transition-colors">
+              <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange group-hover:scale-125 transition-transform"></span>
+              <span>Canva</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CREATIVE FIELDS SECTION -->
+        <div class="space-y-3 pt-2">
+          <h2 class="font-syne font-black text-3xl text-y2kRed tracking-tight uppercase">
+            CREATIVE FIELDS
+          </h2>
+          <p class="font-outfit font-medium text-y2kDark/90 text-sm sm:text-base leading-relaxed bg-y2kRed/5 p-3 rounded-xl border border-y2kRed/20">
+            Branding, Packaging Design, Name Tag, Social Media, Layout Design, Poster
+          </p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: INTRO, EDUCATION, EXPERIENCE & CTA -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- HEADER / INTRO GREETING -->
+        <div class="relative space-y-2">
+          
+          <!-- Cute Top-Right Orange Monster / Blob Mascot Graphic Accent -->
+          <div class="absolute -top-4 right-0 flex items-center gap-1 bg-y2kOrange p-2 px-3 rounded-full border-2 border-y2kDark shadow float-badge">
+            <div class="w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
+              <div class="w-1 h-1 bg-black rounded-full"></div>
+            </div>
+            <div class="w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
+              <div class="w-1 h-1 bg-black rounded-full"></div>
+            </div>
+            <div class="w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
+              <div class="w-1 h-1 bg-black rounded-full"></div>
+            </div>
+          </div>
+
+          <h1 class="font-syne font-black text-6xl sm:text-7xl lg:text-8xl text-outline-red leading-none tracking-tight">
+            Hello.
+          </h1>
+          <h2 class="font-syne font-black text-5xl sm:text-6xl lg:text-7xl text-y2kRed leading-none tracking-tight">
+            I'm Thịnh !
+          </h2>
+          
+          <p class="font-outfit text-y2kDark text-base sm:text-lg leading-relaxed pt-3 font-medium max-w-xl">
+            I am currently studying and working at <strong class="text-y2kRed">FPT POLYTECHNIC</strong>. My major is Graphic Design, in addition, I also have a hobby of taking picture and filming. Let's work together to bring results!
+          </p>
+        </div>
+
+        <!-- EDUCATION SECTION -->
+        <div class="space-y-4 pt-2">
+          <div class="relative flex items-center">
+            <h2 class="font-syne font-black text-4xl text-outline-red tracking-tight uppercase">
+              EDUCATION
+            </h2>
+            <div class="flex-grow h-[2px] bg-y2kRed/30 ml-4"></div>
+          </div>
+
+          <div class="space-y-4 font-outfit">
+            <!-- Education Item 1 -->
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 font-syne font-black text-xl text-y2kOrange">
+                <span class="w-3 h-3 rounded-full bg-y2kOrange"></span>
+                <span>2021-2023 :</span>
+              </div>
+              <div class="pl-5 text-y2kDark">
+                <p class="font-bold text-lg">Student at FPT POLYTECHNIC college</p>
+                <p class="text-sm font-mono text-y2kDark/70">[ GRAPHIC DESIGN ]</p>
+              </div>
+            </div>
+
+            <!-- Education Item 2 -->
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 font-syne font-black text-xl text-y2kOrange">
+                <span class="w-3 h-3 rounded-full bg-y2kOrange"></span>
+                <span>2024</span>
+              </div>
+              <div class="pl-5 text-y2kDark">
+                <p class="font-bold text-lg">Graduated from FPT POLYTECHNIC College</p>
+                <p class="text-sm font-mono text-y2kDark/70">Freelancer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE SECTION (Crimson Red Solid Card) -->
+        <div class="bg-y2kRed text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden border-2 border-y2kDark">
+          
+          <h2 class="font-syne font-black text-3xl sm:text-4xl text-outline-white tracking-tight uppercase mb-6">
+            EXPERIENCE
+          </h2>
+
+          <div class="space-y-6 font-outfit">
+            
+            <!-- Job 1 -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 font-syne font-extrabold text-lg sm:text-xl text-white">
+                <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange"></span>
+                <span>2021-2023 : FPT POLYTECHNIC</span>
+              </div>
+              <ul class="space-y-1.5 pl-5 text-sm sm:text-base text-y2kCream/90 font-medium">
+                <li class="flex items-start gap-2">
+                  <span class="text-y2kOrange font-bold">–</span>
+                  <span>Packaging design for Thanh Tam tea project</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-y2kOrange font-bold">–</span>
+                  <span>Participated in packaging design for the NINTENDO SWITCH game machine project</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-y2kOrange font-bold">–</span>
+                  <span>Participate in music projects <strong class="text-white font-bold">' ÂM SẮC '</strong></span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="space-y-2 pt-2 border-t border-white/20">
+              <div class="flex items-center gap-2 font-syne font-extrabold text-lg sm:text-xl text-white">
+                <span class="w-2.5 h-2.5 rounded-full bg-y2kOrange"></span>
+                <span>2023 : FOCUS LEARNING</span>
+              </div>
+              <ul class="space-y-1.5 pl-5 text-sm sm:text-base text-y2kCream/90 font-medium">
+                <li class="flex items-start gap-2">
+                  <span class="text-y2kOrange font-bold">–</span>
+                  <span>Design the entire 2D publication [ poster, banner,...... ]</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-y2kOrange font-bold">–</span>
+                  <span>Participate in shooting and filming activities</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- LET'S WORK TOGETHER CTA CARD -->
+        <div class="bg-y2kOrange text-white rounded-3xl p-6 sm:p-8 border-2 border-y2kDark shadow-xl hover:scale-[1.02] transition-transform cursor-pointer relative overflow-hidden group">
+          <div class="relative z-10 flex flex-col justify-between h-full">
+            <h3 class="font-syne font-black text-3xl sm:text-4xl text-outline-white tracking-wide uppercase">
+              LET'S WORK
+            </h3>
+            <h3 class="font-syne font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-wider uppercase leading-none mt-1">
+              TOGETHER
+            </h3>
+          </div>
+          
+          <!-- Background Retro Arrow Icon Accent -->
+          <i class="fa-solid fa-arrow-trend-up absolute right-4 bottom-2 text-7xl sm:text-8xl text-white/20 group-hover:text-white/30 transition-colors"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Accent Crosshair -->
+    <div class="flex justify-between items-center mt-8 pt-4 border-t border-y2kRed/20 text-xs font-mono text-y2kRed/60">
+      <span>✦ TEMPLATE_BY_GEMINI</span>
+      <span>READY_TO_CUSTOMIZE ✦</span>
+    </div>
+
+  </main>
+
+  <!-- Interactive Clipboard Copy Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-y2kDark text-y2kCream border-2 border-y2kOrange px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 z-50 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-y2kOrange text-lg"></i>
+    <span id="toast-message" class="font-outfit font-bold text-sm">Text copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Copy to clipboard helper function with toast feedback
+    function copyToClipboard(text, message) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(message);
+        }).catch(() => {
+          fallbackCopy(text, message);
+        });
+      } else {
+        fallbackCopy(text, message);
+      }
+    }
+
+    function fallbackCopy(text, message) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(message);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
