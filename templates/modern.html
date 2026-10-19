@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estelle Darcy - Graphic Designer Portfolio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans for clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#1D35EC',
+            brandCream: '#FBF4EC',
+            brandMatte: '#D3C3B1',
+            brandLightBlue: '#C5D0FF',
+            brandDark: '#1E1B18',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #1D35EC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Custom underline style matching graphic accent lines */
+    .section-title {
+      color: #1D35EC;
+      font-weight: 800;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #1D35EC;
+      opacity: 0.8;
+    }
+
+    /* Toast popup styling */
+    #toast {
+      transition: all 0.3s ease-in-out;
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-3 md:p-8 flex justify-center items-center">
+
+  <!-- Outer Main Container with Cream Background and Blue Frame border -->
+  <main class="w-full max-w-5xl bg-brandCream rounded-2xl shadow-2xl overflow-hidden border-8 md:border-[16px] border-brandBlue my-auto text-brandDark transition-all duration-300">
+    
+    <div class="p-6 md:p-12 lg:p-14">
+      
+      <!-- HEADER SECTION -->
+      <header class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b-2 border-brandBlue/20">
+        
+        <!-- Profile Picture with Sand/Brown Matte Box -->
+        <div class="md:col-span-5 flex justify-center md:justify-start">
+          <div class="bg-brandMatte p-3 md:p-4 rounded-xl shadow-md w-full max-w-xs relative group">
+            <div class="overflow-hidden rounded-lg aspect-[4/5] bg-gray-200">
+              <img 
+                src="https://i.pinimg.com/736x/4c/ec/77/4cec77284d199a9c99bff724dc60ee87.jpg" 
+                alt="Estelle Darcy" 
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                onerror="this.onerror=null; this.src='https://placehold.co/400x500/D3C3B1/1D35EC?text=Estelle+Darcy';"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Name, Title, Accents & Contact Info -->
+        <div class="md:col-span-7 flex flex-col justify-between h-full space-y-6">
+          
+          <!-- Graphic SVG Accents Row -->
+          <div class="flex items-center justify-between text-brandBlue">
+            <!-- Squiggle Line -->
+            <svg class="w-28 sm:w-36 h-8 stroke-current" viewBox="0 0 150 30" fill="none" stroke-width="4" stroke-linecap="round">
+              <path d="M 5 15 Q 15 5 25 15 T 45 15 T 65 15 T 85 15 T 105 15 T 125 15 T 145 15" />
+            </svg>
+            
+            <!-- Geometric Sunburst/Burst Icon -->
+            <svg class="w-10 h-10 fill-current" viewBox="0 0 100 100">
+              <path d="M45,0 L55,0 L55,30 L45,30 Z" />
+              <path d="M45,70 L55,70 L55,100 L45,100 Z" />
+              <path d="M0,45 L30,45 L30,55 L0,55 Z" />
+              <path d="M70,45 L100,45 L100,55 L70,55 Z" />
+              <path d="M15,15 L36,36 L29,43 L8,22 Z" transform="rotate(0 50 50)" />
+              <path d="M64,64 L85,85 L78,92 L57,71 Z" transform="rotate(0 50 50)" />
+              <path d="M78,8 L92,22 L71,43 L57,29 Z" transform="rotate(0 50 50)" />
+              <path d="M22,78 L36,64 L15,85 L8,78 Z" transform="rotate(0 50 50)" />
+            </svg>
+          </div>
+
+          <!-- Name & Title -->
+          <div class="space-y-2">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-brandBlue tracking-tight">
+              Estelle Darcy
+            </h1>
+            <h2 class="text-xl sm:text-2xl font-bold text-brandBlue tracking-wide">
+              Graphic Designer
+            </h2>
+            <div class="w-full h-[2px] bg-brandBlue"></div>
+          </div>
+
+          <!-- Quick Interactive Contact Info -->
+          <div class="space-y-3 pt-2 text-sm sm:text-base text-gray-800 font-medium">
+            <!-- Phone -->
+            <button onclick="copyToClipboard('+123-456-7890', 'Phone number copied!')" 
+                    class="flex items-center space-x-3 w-full p-2.5 rounded-lg hover:bg-brandBlue/10 text-left transition-colors duration-200 group">
+              <div class="w-9 h-9 rounded-md bg-brandBlue text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-phone text-sm"></i>
+              </div>
+              <span class="font-semibold text-gray-700 group-hover:text-brandBlue transition-colors">+123-456-7890</span>
+              <span class="ml-auto text-xs text-brandBlue opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+            </button>
+
+            <!-- Email -->
+            <button onclick="copyToClipboard('hello@reallygreatsite.com', 'Email address copied!')" 
+                    class="flex items-center space-x-3 w-full p-2.5 rounded-lg hover:bg-brandBlue/10 text-left transition-colors duration-200 group">
+              <div class="w-9 h-9 rounded-md bg-brandBlue text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-envelope text-sm"></i>
+              </div>
+              <span class="font-semibold text-gray-700 group-hover:text-brandBlue transition-colors">hello@reallygreatsite.com</span>
+              <span class="ml-auto text-xs text-brandBlue opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+            </button>
+
+            <!-- Address -->
+            <button onclick="copyToClipboard('123 Anywhere St., Any City, ST 12345', 'Address copied!')" 
+                    class="flex items-center space-x-3 w-full p-2.5 rounded-lg hover:bg-brandBlue/10 text-left transition-colors duration-200 group">
+              <div class="w-9 h-9 rounded-md bg-brandBlue text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-location-dot text-sm"></i>
+              </div>
+              <span class="font-semibold text-gray-700 group-hover:text-brandBlue transition-colors">123 Anywhere St., Any City, ST 12345</span>
+              <span class="ml-auto text-xs text-brandBlue opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- TWO-COLUMN MAIN CONTENT LAYOUT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-10">
+        
+        <!-- LEFT COLUMN -->
+        <div class="lg:col-span-5 space-y-10">
+          
+          <!-- About Me -->
+          <section>
+            <h3 class="section-title">About Me</h3>
+            <p class="text-gray-700 text-sm sm:text-base leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo lectus odio, ut fermentum purus pharetra in. Vestibulum finibus, nibh non iaculis tempus, nisl mauris hendrerit mauris, vitae congue ipsum eros eu nibh. Morbi faucibus id purus et porttitor. Fusce pretium luctus ante tincidunt venenatis.
+            </p>
+          </section>
+
+          <!-- Language Section -->
+          <section>
+            <h3 class="section-title">Language</h3>
+            <div class="space-y-4">
+              <!-- English -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-sm font-bold text-gray-800">
+                  <span>English</span>
+                  <span class="text-brandBlue">90%</span>
+                </div>
+                <div class="w-full bg-brandBlue/20 h-3 rounded-full overflow-hidden">
+                  <div class="bg-brandBlue h-full rounded-full w-[90%] transition-all duration-1000"></div>
+                </div>
+              </div>
+
+              <!-- Japanese -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-sm font-bold text-gray-800">
+                  <span>Japanese</span>
+                  <span class="text-brandBlue">65%</span>
+                </div>
+                <div class="w-full bg-brandBlue/20 h-3 rounded-full overflow-hidden">
+                  <div class="bg-brandBlue h-full rounded-full w-[65%] transition-all duration-1000"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skills Section -->
+          <section>
+            <h3 class="section-title">Skills</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-center space-x-3 text-gray-800 font-bold text-base group">
+                <span class="w-2 h-2 bg-brandBlue rounded-full group-hover:scale-150 transition-transform"></span>
+                <span class="group-hover:text-brandBlue transition-colors">Graphic Design</span>
+              </li>
+              <li class="flex items-center space-x-3 text-gray-800 font-bold text-base group">
+                <span class="w-2 h-2 bg-brandBlue rounded-full group-hover:scale-150 transition-transform"></span>
+                <span class="group-hover:text-brandBlue transition-colors">Illustration</span>
+              </li>
+              <li class="flex items-center space-x-3 text-gray-800 font-bold text-base group">
+                <span class="w-2 h-2 bg-brandBlue rounded-full group-hover:scale-150 transition-transform"></span>
+                <span class="group-hover:text-brandBlue transition-colors">Photography</span>
+              </li>
+              <li class="flex items-center space-x-3 text-gray-800 font-bold text-base group">
+                <span class="w-2 h-2 bg-brandBlue rounded-full group-hover:scale-150 transition-transform"></span>
+                <span class="group-hover:text-brandBlue transition-colors">Art Direction</span>
+              </li>
+            </ul>
+          </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="lg:col-span-7 space-y-10">
+          
+          <!-- Education Section -->
+          <section>
+            <h3 class="section-title">Education</h3>
+            <div class="space-y-6">
+              
+              <!-- Item 1 -->
+              <div class="pb-4 border-b border-brandBlue/30 hover:pl-2 transition-all duration-200">
+                <div class="flex flex-wrap items-baseline gap-2">
+                  <span class="text-brandBlue font-extrabold text-lg">2015-2018</span>
+                  <span class="text-brandBlue font-bold text-lg">| Fine Art</span>
+                </div>
+                <h4 class="text-xl font-normal text-gray-800 mt-1">
+                  Wardiere University
+                </h4>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="pb-4 border-b border-brandBlue/30 hover:pl-2 transition-all duration-200">
+                <div class="flex flex-wrap items-baseline gap-2">
+                  <span class="text-brandBlue font-extrabold text-lg">2018-2021</span>
+                  <span class="text-brandBlue font-bold text-lg">| Photography</span>
+                </div>
+                <h4 class="text-xl font-normal text-gray-800 mt-1">
+                  Rimberio School
+                </h4>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Work Experience Section -->
+          <section>
+            <h3 class="section-title">Work Experience</h3>
+            <div class="space-y-8">
+              
+              <!-- Job 1 -->
+              <div class="space-y-2 pb-6 border-b border-brandBlue/30 hover:pl-2 transition-all duration-200">
+                <div class="flex flex-wrap items-baseline gap-2">
+                  <span class="text-brandBlue font-extrabold text-lg">2016-2017</span>
+                  <span class="text-brandBlue font-bold text-lg">| Graphic Designer</span>
+                </div>
+                <h4 class="text-2xl font-normal text-gray-800">
+                  Studio Shodwe
+                </h4>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed pt-1">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo lectus odio, ut fermentum purus pharetra in. Vestibulum finibus, nibh non iaculis tempus, nisl mauris hendrerit mauris, vitae congue.
+                </p>
+              </div>
+
+              <!-- Job 2 -->
+              <div class="space-y-2 pb-2 hover:pl-2 transition-all duration-200">
+                <div class="flex flex-wrap items-baseline gap-2">
+                  <span class="text-brandBlue font-extrabold text-lg">2017-2023</span>
+                  <span class="text-brandBlue font-bold text-lg">| Art Direction</span>
+                </div>
+                <h4 class="text-2xl font-normal text-gray-800">
+                  Thynk Unlimited
+                </h4>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed pt-1">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo lectus odio, ut fermentum purus pharetra in. Vestibulum finibus, nibh non iaculis tempus, nisl mauris hendrerit mauris, vitae congue.
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Interactive Copy Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-brandBlue text-white px-5 py-3 rounded-xl shadow-xl flex items-center space-x-3 z-50 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-green-300"></i>
+    <span id="toast-message" class="font-semibold text-sm">Text copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Copy to clipboard helper with fallbacks and toast prompt
+    function copyToClipboard(text, message) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(message);
+        }).catch(() => {
+          fallbackCopy(text, message);
+        });
+      } else {
+        fallbackCopy(text, message);
+      }
+    }
+
+    function fallbackCopy(text, message) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(message);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
